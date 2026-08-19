@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Campus Lost & Found</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body class="auth-body">
+  <main class="auth-shell">
+    <section class="auth-card glass">
+      <div class="auth-header">
+        <div class="brand-mark lg">CLF</div>
+        <h1>Create Account</h1>
+      </div>
+
+      <form id="registerForm" class="form">
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input id="name" type="text" placeholder="Enter name" required />
+        </div>
+
+        <div class="field">
+          <label for="studentId">Student ID</label>
+          <input id="studentId" type="text" placeholder="Enter ID" required />
+        </div>
+
+        <div class="field">
+          <label for="school">School</label>
+          <select id="school" required>
+            <option value="">Select school</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="email">Student Email</label>
+          <input id="email" type="email" placeholder="name@school.edu" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Create strong password" required />
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" type="password" placeholder="Confirm password" required />
+        </div>
+
+        <button class="btn btn-primary full" type="submit">Register</button>
+      </form>
+<!-- 
+      <div class="auth-footer">
+        <p>Already have an account? <a href=" login.html" target ="_blank">Login</a></p>
+      </div> -->
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="auth.js"></script>
+  <SCript>
+    document.addEventListener("DOMContentLoaded", () => {
+      AuthModule.populateSchoolOptions(document.getElementById("school"));
+      document.getElementById("registerForm").addEventListener("submit", AuthModule.handleRegister);
+    });
+  </script>
+</body>
+</html>
