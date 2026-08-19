@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Item Details | Campus Lost & Found</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body>
+  <main class="container section">
+    <a href="dashboard.html" class="btn btn-secondary sm">← Back to Dashboard</a>
+    <div id="itemDetailContainer" class="item-detail-page glass"></div>
+  </main>
+
+  <div id="modalRoot"></div>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="auth.js"></script>
+  <script src="items.js"></script>
+  <script src="claims.js"></script>
+  <script src="notifications.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = StorageModule.getCurrentUser();
+      if (!user) window.location.href = " login.html";
+      const itemId = new URLSearchParams(window.location.search).get("id");
+      UIModule.renderItemDetailPage(itemId);
+    });
+  </script>
+</body>
+</html>

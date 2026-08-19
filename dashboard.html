@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Campus Lost & Found</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar glass">
+      <div class="sidebar-brand">
+        <div class="brand-mark">CLF</div>
+        <div>
+          <strong>Campus Lost & Found</strong>
+          <p id="sidebarSchoolName">School Portal</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="side-link active" data-view="dashboard">Dashboard</button>
+        <button class="side-link" data-view="browse">Browse Items</button>
+        <button class="side-link" data-view="report">Report Found Item</button>
+        <button class="side-link" data-view="claims">My Claims</button>
+        <button class="side-link" data-view="posted">My Posted Items</button>
+        <button class="side-link" data-view="notifications">Notifications</button>
+        <button class="side-link" data-view="profile">Profile</button>
+        <button class="side-link danger" id="logoutBtn">Logout</button>
+      </nav>
+    </aside>
+
+    <main class="dashboard-main">
+      <header class="dashboard-top glass">
+        <div class="search-wrap">
+          <input id="globalSearch" type="text" placeholder="Search items..." />
+        </div>
+        <div class="top-actions">
+          <button id="darkModeToggle" class="btn btn-secondary sm">Dark Mode</button>
+          <button id="notificationBell" class="icon-btn">
+            🔔 <span id="notificationCount" class="notif-badge">0</span>
+          </button>
+          <div class="user-chip">
+            <div class="avatar" id="topAvatar">U</div>
+            <span id="topUserName">Student</span>
+          </div>
+        </div>
+      </header>
+
+      <section id="view-dashboard" class="view active"></section>
+      <section id="view-browse" class="view"></section>
+      <section id="view-report" class="view"></section>
+      <section id="view-claims" class="view"></section>
+      <section id="view-posted" class="view"></section>
+      <section id="view-notifications" class="view"></section>
+      <section id="view-profile" class="view"></section>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="auth.js"></script>
+  <script src="items.js"></script>
+  <script src="claims.js"></script>
+  <script src="notifications.js"></script>
+</body>
+</html>

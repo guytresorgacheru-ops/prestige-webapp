@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Campus Lost & Found</title>
+  <link rel="stylesheet" href="variables.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body class="auth-body">
+  <main class="auth-shell">
+    <section class="auth-card glass">
+      
+      <div class="auth-header">
+        <div class="brand-mark lg">CLF</div>
+        <!-- <h1>Welcome Back</h1> -->
+        <p>Login to enter your school portal.</p>
+      </div>
+        <div class="field">
+          <label for="school">School Selector</label>
+          <select id="school" required>
+            <option value="">Select school</option>
+          </select>
+        </div>
+      <form id="loginForm" class="form">
+        <div class="field">
+          <label for="email">Student Email</label>
+          <input id="email" type="email" placeholder="student@school.edu" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter password" required />
+        </div>
+
+        <!-- <div class="form-row between">
+          <label class="checkbox">
+            <input id="rememberMe" type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="link">Forgot Password?</a>
+        </div> -->
+
+        <button class="btn btn-primary full" type="submit" >Login</button>
+      </form>
+
+      <div class="auth-footer">
+        <p><a href="register.html" target ="_blank">Create an account</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      AuthModule.populateSchoolOptions(document.getElementById("school"));
+      AuthModule.loadRememberedEmail();
+      document.getElementById("loginForm").addEventListener("submit", AuthModule.handleLogin);
+    });
+  </script>
+</body>
+</html>
