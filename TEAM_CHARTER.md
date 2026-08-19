@@ -72,4 +72,8 @@ The Campus Lost and Found website is a student-focused platform designed to help
 
 ### Ring Summary
 
-[INSERT A SHORT DESCRIPTION OF HOW OUR TEAM CONNECTS TO THE OTHER TEAMS IN THE RING, INCLUDING WHAT WE CONSUME AND WHAT WE PROVIDE.]
+
+
+## Repository
+
+[Campus Lost and Found GitHub Repository](https://github.com/guytresorgacheru-ops/prestige-webapp)
