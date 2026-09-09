@@ -3,4 +3,6 @@ info:
   title: [Your App Name] API
   version: 1.0.0
 paths:
-  # every endpoint from ENDPOINT_LIST.md goes here
+  /claims:
+    get:
+      summary: Return claimed items with their reward amounts
