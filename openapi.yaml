@@ -76,3 +76,46 @@ paths:
                   error:
                     type: string
                     example: "student not found"
+  /schools/{schoolId}/item-statistics:
+    get:
+      summary: Return aggregate lost-item statistics for a school
+      parameters:
+        - name: schoolId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Aggregate statistics for the given school.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schoolId, totalItemsReported, totalItemsClaimed, totalRewardAmountPaidCents]
+                properties:
+                  schoolId:
+                    type: string
+                  schoolName:
+                    type: string
+                    example: "Lakeside High School"
+                  totalItemsReported:
+                    type: integer
+                    example: 214
+                  totalItemsClaimed:
+                    type: integer
+                    example: 132
+                  totalRewardAmountPaidCents:
+                    type: integer
+                    example: 198000
+        '404':
+          description: No school found with the given schoolId.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error]
+                properties:
+                  error:
+                    type: string
+                    example: "school not found"
