@@ -6,3 +6,10 @@ paths:
   /claims:
     get:
       summary: Return claimed items with their reward amounts
+      parameters:
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [claimed] # TODO: confirm other status values with team (pending? resolved?)
