@@ -13,3 +13,25 @@ paths:
           schema:
             type: string
             enum: [claimed] # TODO: confirm other status values with team (pending? resolved?)
+      responses:
+        '200':
+          description: A list of claims matching the given status.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [claimId, studentId, itemId, status, rewardAmountCents]
+                  properties:
+                    claimId:
+                      type: string
+                    studentId:
+                      type: string
+                    itemId:
+                      type: string
+                    status:
+                      type: string
+                    rewardAmountCents:
+                      type: integer
+                      example: 1500
