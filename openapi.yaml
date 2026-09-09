@@ -157,3 +157,50 @@ paths:
                   error:
                     type: string
                     example: "claim not found"
+  /claims/{claimId}/refunds:
+    get:
+      summary: Return refund details for a claim, supporting one or more refund events
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of refund events for the given claim (may be empty).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [refundId, claimId, studentId, amountCents, reason]
+                  properties:
+                    refundId:
+                      type: string
+                    claimId:
+                      type: string
+                    studentId:
+                      type: string
+                    amountCents:
+                      type: integer
+                      example: 250
+                    reason:
+                      type: string
+                      example: "Item returned in damaged condition; partial refund issued."
+                    refundedAt:
+                      type: string
+                      format: date-time
+                      example: "2026-08-20T16:30:00Z"
+        '404':
+          description: No claim found with the given claimId.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error]
+                properties:
+                  error:
+                    type: string
+                    example: "claim not found"
