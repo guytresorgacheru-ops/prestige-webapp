@@ -35,3 +35,12 @@ paths:
                     rewardAmountCents:
                       type: integer
                       example: 1500
+  /students/{studentId}/claims:
+    get:
+      summary: Return a student's claims with current status
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
