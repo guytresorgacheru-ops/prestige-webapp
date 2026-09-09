@@ -119,3 +119,41 @@ paths:
                   error:
                     type: string
                     example: "school not found"
+  /claims/{claimId}/fees:
+    get:
+      summary: Return fee details for a claim
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fee details for the given claim.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [claimId, studentId, itemId, amountPayableCents]
+                properties:
+                  claimId:
+                    type: string
+                  studentId:
+                    type: string
+                  itemId:
+                    type: string
+                  amountPayableCents:
+                    type: integer
+                    example: 500
+        '404':
+          description: No claim found with the given claimId.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error]
+                properties:
+                  error:
+                    type: string
+                    example: "claim not found"
