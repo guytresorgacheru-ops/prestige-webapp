@@ -1,0 +1,24 @@
+{
+  "name": "prestige-webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guytresorgacheru-ops/prestige-webapp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/guytresorgacheru-ops/prestige-webapp/issues"
+  },
+  "homepage": "https://github.com/guytresorgacheru-ops/prestige-webapp#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
