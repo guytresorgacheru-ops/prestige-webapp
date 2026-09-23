@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-     title: Prestige Lost & Found API
+  title: Prestige Lost & Found API
   version: 1.0.0
 paths:
   /claims:
@@ -22,7 +22,8 @@ paths:
                 type: array
                 items:
                   type: object
-                  required: [claimId, studentId, itemId, status, rewardAmountCents]
+                  required:
+                    [claimId, studentId, itemId, status, rewardAmountCents]
                   properties:
                     claimId:
                       type: string
@@ -35,6 +36,67 @@ paths:
                     rewardAmountCents:
                       type: integer
                       example: 1500
+    post:
+      summary: Submit a new claim on an item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [studentId, itemId]
+              properties:
+                studentId:
+                  type: string
+                itemId:
+                  type: string
+      responses:
+        '201':
+          description: Claim created.
+        '400':
+          description: Missing or invalid fields.
+
+  /claims/{claimId}:
+    patch:
+      summary: Update a claim's status
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [pending, claimed, rejected]
+      responses:
+        '200':
+          description: Claim updated.
+        '400':
+          description: Missing or invalid fields.
+        '404':
+          description: No claim found with the given claimId.
+    delete:
+      summary: Withdraw/cancel a claim
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Claim deleted.
+        '404':
+          description: No claim found with the given claimId.
+
   /students/{studentId}/claims:
     get:
       summary: Return a student's claims with current status
@@ -64,7 +126,7 @@ paths:
                     submittedAt:
                       type: string
                       format: date-time
-                      example: "2026-07-01T09:15:00Z"
+                      example: '2026-07-01T09:15:00Z'
         '404':
           description: No student found with the given studentId.
           content:
@@ -75,7 +137,8 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "student not found"
+                    example: 'student not found'
+
   /schools/{schoolId}/item-statistics:
     get:
       summary: Return aggregate lost-item statistics for a school
@@ -92,13 +155,19 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [schoolId, totalItemsReported, totalItemsClaimed, totalRewardAmountPaidCents]
+                required:
+                  [
+                    schoolId,
+                    totalItemsReported,
+                    totalItemsClaimed,
+                    totalRewardAmountPaidCents,
+                  ]
                 properties:
                   schoolId:
                     type: string
                   schoolName:
                     type: string
-                    example: "Lakeside High School"
+                    example: 'Lakeside High School'
                   totalItemsReported:
                     type: integer
                     example: 214
@@ -118,7 +187,8 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "school not found"
+                    example: 'school not found'
+
   /claims/{claimId}/fees:
     get:
       summary: Return fee details for a claim
@@ -156,7 +226,8 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "claim not found"
+                    example: 'claim not found'
+
   /claims/{claimId}/refunds:
     get:
       summary: Return refund details for a claim, supporting one or more refund events
@@ -188,11 +259,11 @@ paths:
                       example: 250
                     reason:
                       type: string
-                      example: "Item returned in damaged condition; partial refund issued."
+                      example: 'Item returned in damaged condition; partial refund issued.'
                     refundedAt:
                       type: string
                       format: date-time
-                      example: "2026-08-20T16:30:00Z"
+                      example: '2026-08-20T16:30:00Z'
         '404':
           description: No claim found with the given claimId.
           content:
@@ -203,4 +274,33 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "claim not found"
+                    example: 'claim not found'
+    post:
+      summary: Issue a refund on a claim
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [studentId, amountCents, reason]
+              properties:
+                studentId:
+                  type: string
+                amountCents:
+                  type: integer
+                reason:
+                  type: string
+      responses:
+        '201':
+          description: Refund created.
+        '400':
+          description: Missing or invalid fields.
+        '404':
+          description: No claim found with the given claimId.

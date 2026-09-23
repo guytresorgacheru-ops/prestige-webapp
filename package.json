@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "prestige-webapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,14 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guytresorgacheru-ops/prestige-webapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guytresorgacheru-ops/prestige-webapp/issues"
+  },
+  "homepage": "https://github.com/guytresorgacheru-ops/prestige-webapp#readme",
   "keywords": [],
   "author": "",
   "license": "ISC",
