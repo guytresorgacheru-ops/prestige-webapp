@@ -1,7 +1,10 @@
+
 const StorageModule = {
   get(key, fallback = []) {
     const raw = localStorage.getItem(key);
+
     if (!raw) return fallback;
+
     try {
       return JSON.parse(raw);
     } catch {
@@ -29,7 +32,9 @@ const StorageModule = {
   },
 
   getUserByEmail(email) {
-    return this.getUsers().find(u => u.email.toLowerCase() === email.toLowerCase());
+    return this.getUsers().find(
+      u => u.email.toLowerCase() === email.toLowerCase()
+    );
   },
 
   getUserById(id) {
@@ -37,7 +42,10 @@ const StorageModule = {
   },
 
   updateUser(id, updates) {
-    const users = this.getUsers().map(u => u.id === id ? { ...u, ...updates } : u);
+    const users = this.getUsers().map(u =>
+      u.id === id ? { ...u, ...updates } : u
+    );
+
     this.saveUsers(users);
     return users.find(u => u.id === id);
   },
@@ -62,9 +70,30 @@ const StorageModule = {
   },
 
   updateItem(id, updates) {
-    const items = this.getItems().map(i => i.id === id ? { ...i, ...updates } : i);
+    const items = this.getItems().map(i =>
+      i.id === id ? { ...i, ...updates } : i
+    );
+
     this.saveItems(items);
     return items.find(i => i.id === id);
+  },
+
+  deleteItem(id) {
+    const items = this.getItems();
+    const itemExists = items.some(i => i.id === id);
+
+    if (!itemExists) return false;
+
+    this.saveItems(items.filter(i => i.id !== id));
+
+    // Remove claims associated with the deleted item.
+    const claims = this.getClaims();
+
+    this.saveClaims(
+      claims.filter(claim => claim.itemId !== id)
+    );
+
+    return true;
   },
 
   getClaims() {
@@ -83,7 +112,10 @@ const StorageModule = {
   },
 
   updateClaim(id, updates) {
-    const claims = this.getClaims().map(c => c.id === id ? { ...c, ...updates } : c);
+    const claims = this.getClaims().map(c =>
+      c.id === id ? { ...c, ...updates } : c
+    );
+
     this.saveClaims(claims);
     return claims.find(c => c.id === id);
   },

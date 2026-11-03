@@ -1,3 +1,4 @@
+
 const NotificationsModule = {
   createNotification(userId, message, type = "info", itemId = null) {
     const notification = {
@@ -14,24 +15,38 @@ const NotificationsModule = {
   },
 
   getUserNotifications(userId) {
-    return StorageModule.getNotifications().filter(n => n.userId === userId);
+    return StorageModule.getNotifications()
+      .filter(n => String(n.userId) === String(userId));
+  },
+
+  // Compatibility with app.js
+  forUser(userId) {
+    return this.getUserNotifications(userId);
   },
 
   getUnreadCount(userId) {
-    return this.getUserNotifications(userId).filter(n => !n.read).length;
+    return this.getUserNotifications(userId)
+      .filter(n => !n.read).length;
+  },
+
+  // Compatibility with app.js
+  unread(userId) {
+    return this.getUnreadCount(userId);
   },
 
   markAllRead(userId) {
     const notifications = StorageModule.getNotifications().map(n =>
-      n.userId === userId ? { ...n, read: true } : n
+      String(n.userId) === String(userId)
+        ? { ...n, read: true }
+        : n
     );
+
     StorageModule.saveNotifications(notifications);
   },
 
   notifyFounderOfClaim(item, claimant) {
-    const founderId = item.founderId;
     this.createNotification(
-      founderId,
+      item.founderId,
       `${claimant.name} submitted a claim for "${item.title}".`,
       "claim",
       item.id
@@ -40,9 +55,10 @@ const NotificationsModule = {
 
   notifyClaimApproved(userId, itemId) {
     const item = StorageModule.getItemById(itemId);
+
     this.createNotification(
       userId,
-      `Your claim for "${item.title}" was approved.`,
+      `Your claim for "${item?.title || "an item"}" was approved.`,
       "success",
       itemId
     );
@@ -50,18 +66,22 @@ const NotificationsModule = {
 
   notifyClaimRejected(userId, itemId) {
     const item = StorageModule.getItemById(itemId);
+
     this.createNotification(
       userId,
-      `Your claim for "${item.title}" was rejected.`,
+      `Your claim for "${item?.title || "an item"}" was rejected.`,
+      "claim",
       itemId
     );
   },
 
   notifyMoreProof(userId, itemId) {
     const item = StorageModule.getItemById(itemId);
+
     this.createNotification(
       userId,
-      `More proof was requested for "${item.title}".`,
+      `More proof was requested for "${item?.title || "an item"}".`,
+      "claim",
       itemId
     );
   }
